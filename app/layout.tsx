@@ -1,6 +1,11 @@
+import "@radix-ui/themes/styles.css";
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { Theme } from "@radix-ui/themes";
+
 import "./globals.css";
+
 import NavBar from "./NavBar";
 
 const roboto = Roboto({
@@ -13,16 +18,14 @@ export const metadata: Metadata = {
   description: "Issue Tracker by radenayr",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <NavBar />
-        <main>{children}</main>
+        <Theme>
+          <NavBar />
+          <main>{children}</main>
+        </Theme>
       </body>
     </html>
   );
