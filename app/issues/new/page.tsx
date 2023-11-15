@@ -1,33 +1,23 @@
 "use client";
-import { Button, Callout, TextArea, TextField } from "@radix-ui/themes";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Button, Callout, Text, TextArea, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+import { useSubmit } from "./hooks";
+import { createIssueSchema } from "@/app/validations/issue";
+
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
-  const { push } = useRouter();
-  const { register, handleSubmit } = useForm<IssueForm>();
-  const [error, setError] = useState<string>("");
-
-  const OnSubmit = async (data: IssueForm) => {
-    setError("");
-
-    try {
-      await axios.post("/api/issues", data);
-
-      push("/issues");
-    } catch (err: any) {
-      const error: Error = err as Error;
-
-      setError(error.message);
-    }
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
+  const { onSubmit, error } = useSubmit();
 
   return (
     <div className="max-w-lg">
@@ -36,11 +26,21 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className="space-y-3" onSubmit={handleSubmit(OnSubmit)}>
+      <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
+        {errors.title && (
+          <Text color="red" size="1" as="p">
+            {errors.title.message}
+          </Text>
+        )}
         <TextArea placeholder="Description" {...register("description")} />
+        {errors.description && (
+          <Text color="red" size="1" as="p">
+            {errors.description.message}
+          </Text>
+        )}
         <Button type="submit">Submit New Issue</Button>
       </form>
     </div>
