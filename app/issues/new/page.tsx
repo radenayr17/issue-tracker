@@ -1,11 +1,13 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Callout, Text, TextArea, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { useSubmit } from "./hooks";
+import FieldErrorMessage from "@/app/components/FieldErrorMessage";
 import { createIssueSchema } from "@/app/validations/issue";
+
+import { useSubmit } from "./hooks";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -30,17 +32,9 @@ const NewIssuePage = () => {
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
-        {errors.title && (
-          <Text color="red" size="1" as="p">
-            {errors.title.message}
-          </Text>
-        )}
+        <FieldErrorMessage>{errors.title?.message}</FieldErrorMessage>
         <TextArea placeholder="Description" {...register("description")} />
-        {errors.description && (
-          <Text color="red" size="1" as="p">
-            {errors.description.message}
-          </Text>
-        )}
+        <FieldErrorMessage>{errors.description?.message}</FieldErrorMessage>
         <Button type="submit">Submit New Issue</Button>
       </form>
     </div>
