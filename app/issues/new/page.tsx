@@ -1,7 +1,7 @@
 "use client";
 import { Button, Callout, TextArea, TextField, Box } from "@radix-ui/themes";
 
-import FieldErrorMessage from "@/app/components/FieldErrorMessage";
+import { FieldErrorMessage } from "@/app/components";
 
 import { useSubmit } from "./hooks";
 

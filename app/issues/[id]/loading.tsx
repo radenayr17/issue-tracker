@@ -1,5 +1,5 @@
 import { Box, Card, Flex } from "@radix-ui/themes";
-import Skeleton from "@/app/components/Skeleton";
+import { Skeleton } from "@/app/components";
 
 const IssueDetailLoadingPage = async () => {
   return (
