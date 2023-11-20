@@ -1,7 +1,13 @@
-import React from "react";
+import { Box } from "@radix-ui/themes";
+import Skeleton from "@/app/components/Skeleton";
 
 const IssueNewLoadingPage = () => {
-  return <div>loading</div>;
+  return (
+    <Box className="max-w-3xl">
+      <Skeleton />
+      <Skeleton />
+    </Box>
+  );
 };
 
 export default IssueNewLoadingPage;

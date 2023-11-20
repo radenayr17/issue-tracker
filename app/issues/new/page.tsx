@@ -1,5 +1,5 @@
 "use client";
-import { Button, Callout, TextArea, TextField } from "@radix-ui/themes";
+import { Button, Callout, TextArea, TextField, Box } from "@radix-ui/themes";
 
 import FieldErrorMessage from "@/app/components/FieldErrorMessage";
 
@@ -9,7 +9,7 @@ const NewIssuePage = () => {
   const { onSubmit, error, loading, errors, register } = useSubmit();
 
   return (
-    <div className="max-w-lg">
+    <Box className="max-w-3xl">
       {error && (
         <Callout.Root color="red" className="mb-5">
           <Callout.Text>{error}</Callout.Text>
@@ -26,7 +26,7 @@ const NewIssuePage = () => {
           Submit New Issue
         </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 
