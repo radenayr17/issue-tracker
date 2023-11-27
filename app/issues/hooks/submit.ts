@@ -31,7 +31,7 @@ export const useSubmit = (issue?: Issue) => {
         await axios.post(`/api/issues`, data);
       }
 
-      push("/issues");
+      push("/issues/list");
       refresh();
     } catch (err: any) {
       const error: Error = err as Error;

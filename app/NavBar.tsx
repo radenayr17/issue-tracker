@@ -12,7 +12,7 @@ interface Links {
 
 const links: Links[] = [
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Issues", href: "/issues" },
+  { label: "Issues", href: "/issues/list" },
 ];
 
 const NavBar = () => {

@@ -1,6 +1,6 @@
 import { Table } from "@radix-ui/themes";
 import { Skeleton } from "@/app/components";
-import IssueActions from "./components/IssueActions";
+import IssueActions from "../components/IssueActions";
 
 const IssueLoadingPage = () => {
   const issues: number[] = [1, 2, 3, 4, 5];
