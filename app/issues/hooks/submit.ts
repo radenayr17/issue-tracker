@@ -1,20 +1,21 @@
-import { createIssueSchema } from "@/app/validations/issue";
+import { issueSchema } from "@/app/validations/issue";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type IssueForm = z.infer<typeof createIssueSchema>;
+type IssueForm = z.infer<typeof issueSchema>;
 
-export const useSubmit = () => {
+export const useSubmit = (issue?: Issue) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IssueForm>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const { push } = useRouter();
   const [error, setError] = useState<string>("");
@@ -24,7 +25,11 @@ export const useSubmit = () => {
     try {
       setLoading(true);
 
-      await axios.post("/api/issues", data);
+      if (issue) {
+        await axios.patch(`/api/issues/${issue?.id}`, data);
+      } else {
+        await axios.patch(`/api/issues`, data);
+      }
 
       push("/issues");
     } catch (err: any) {
