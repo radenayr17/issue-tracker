@@ -1,5 +1,3 @@
-"use client";
-
 import IssueForm from "@/app/issues/components/IssueForm";
 
 const NewIssuePage = () => {

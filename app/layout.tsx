@@ -3,7 +3,7 @@ import "@/app/theme.config.css";
 
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Theme } from "@radix-ui/themes";
+import { Container, Theme } from "@radix-ui/themes";
 
 import "./globals.css";
 
@@ -26,7 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Theme appearance="light" accentColor="cyan" grayColor="sand" panelBackground="solid" radius="medium">
           <NavBar />
-          <main className="p-5">{children}</main>
+          <main className="p-5">
+            <Container>{children}</Container>
+          </main>
         </Theme>
       </body>
     </html>
