@@ -17,7 +17,7 @@ export const useSubmit = (issue?: Issue) => {
   } = useForm<IssueForm>({
     resolver: zodResolver(issueSchema),
   });
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,10 +28,11 @@ export const useSubmit = (issue?: Issue) => {
       if (issue) {
         await axios.patch(`/api/issues/${issue?.id}`, data);
       } else {
-        await axios.patch(`/api/issues`, data);
+        await axios.post(`/api/issues`, data);
       }
 
       push("/issues");
+      refresh();
     } catch (err: any) {
       const error: Error = err as Error;
 
